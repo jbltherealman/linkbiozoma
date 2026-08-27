@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Zomaruss · Linktree</title>
+  <!-- Font Awesome (opcional, para ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Reset básico e estilo minimalista */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .linktree-card {
+      max-width: 580px;
+      width: 100%;
+      background: rgba(22, 22, 22, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 40px 28px 48px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      text-align: center;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* Avatar / foto de perfil */
+    .profile-picture {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffb347;
+      box-shadow: 0 0 0 4px rgba(255, 180, 70, 0.2);
+      transition: box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .profile-picture i {
+      font-size: 58px;
+      color: #f5c542;
+      filter: drop-shadow(0 2px 6px rgba(255, 180, 50, 0.3));
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Título e subtítulo */
+    .username {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 4px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .bio {
+      font-size: 16px;
+      color: #b0b0b0;
+      margin-bottom: 28px;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 0 8px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+      padding-bottom: 20px;
+    }
+
+    .bio i {
+      color: #ffb347;
+      margin: 0 4px;
+    }
+
+    .highlight {
+      color: #ffb347;
+      font-weight: 500;
+    }
+
+    /* Grid de links estilo "Linktree" */
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 20px 0 28px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 14px 20px;
+      border-radius: 60px;
+      text-decoration: none;
+      color: #eeeeee;
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 180, 70, 0.08), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .link-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #ffb347;
+      transform: scale(1.02) translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 180, 70, 0.2);
+      color: #ffffff;
+    }
+
+    .link-item:hover::before {
+      opacity: 1;
+    }
+
+    .link-item i {
+      font-size: 22px;
+      width: 30px;
+      color: #ffb347;
+      transition: transform 0.2s;
+      z-index: 1;
+    }
+
+    .link-item:hover i {
+      transform: scale(1.1);
+    }
+
+    .link-item span {
+      flex: 1;
+      text-align: center;
+      z-index: 1;
+      font-weight: 500;
+    }
+
+    .link-item .badge {
+      background: #ffb347;
+      color: #0a0a0a;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 40px;
+      letter-spacing: 0.5px;
+      z-index: 1;
+      box-shadow: 0 2px 6px rgba(255, 180, 70, 0.3);
+    }
+
+    .link-item .badge.pulse {
+      animation: pulseGlow 2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(255, 180, 70, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 180, 70, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 180, 70, 0); }
+    }
+
+    /* =============================================
+       NOVA CLASSE: product-img para fotos pequenas
+       ============================================= */
+    .product-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 180, 70, 0.4);
+      flex-shrink: 0;
+      background: #1a1a1a;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      z-index: 1;
+    }
+
+    .link-item:hover .product-img {
+      transform: scale(1.08);
+      border-color: #ffb347;
+    }
+
+    /* Para quando a imagem não carregar, um fallback visual */
+    .product-img::before {
+      content: "📦";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 20px;
+      background: #2a2a2a;
+      border-radius: 50%;
+    }
+
+    /* =============================================
+       TEMAS POR PRODUTO - cores características
+       ============================================= */
+
+    /* Tema 1: Lixa de Pé (rosa/roxo - beleza) */
+    .theme-lixa {
+      --theme-color: #ff5e8a;
+      --theme-color-2: #c44cff;
+      --theme-glow: rgba(255, 94, 138, 0.35);
+      background: linear-gradient(135deg, rgba(255, 94, 138, 0.12), rgba(196, 76, 255, 0.08));
+      border-color: rgba(255, 94, 138, 0.25);
+    }
+    .theme-lixa i,
+    .theme-lixa .product-img {
+      border-color: rgba(255, 94, 138, 0.5);
+    }
+    .theme-lixa:hover {
+      background: linear-gradient(135deg, rgba(255, 94, 138, 0.22), rgba(196, 76, 255, 0.18));
+      border-color: var(--theme-color);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
+    }
+    .theme-lixa .badge {
+      background: linear-gradient(135deg, #ff5e8a, #c44cff);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(255, 94, 138, 0.4);
+    }
+    .theme-lixa .badge.pulse {
+      animation: pulseGlowLixa 2s infinite;
+    }
+    @keyframes pulseGlowLixa {
+      0% { box-shadow: 0 0 0 0 rgba(255, 94, 138, 0.5); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 94, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 94, 138, 0); }
+    }
+
+    /* Tema 2: Joelheiras (azul/ciano - saúde/esporte) */
+    .theme-joelheira {
+      --theme-color: #4cc9ff;
+      --theme-color-2: #00b4d8;
+      --theme-glow: rgba(76, 201, 255, 0.35);
+      background: linear-gradient(135deg, rgba(76, 201, 255, 0.12), rgba(0, 180, 216, 0.08));
+      border-color: rgba(76, 201, 255, 0.25);
+    }
+    .theme-joelheira i,
+    .theme-joelheira .product-img {
+      border-color: rgba(76, 201, 255, 0.5);
+    }
+    .theme-joelheira:hover {
+      background: linear-gradient(135deg, rgba(76, 201, 255, 0.22), rgba(0, 180, 216, 0.18));
+      border-color: var(--theme-color);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
+    }
+    .theme-joelheira .badge {
+      background: linear-gradient(135deg, #4cc9ff, #00b4d8);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(76, 201, 255, 0.4);
+    }
+    .theme-joelheira .badge.pulse {
+      animation: pulseGlowJoelheira 2s infinite;
+    }
+    @keyframes pulseGlowJoelheira {
+      0% { box-shadow: 0 0 0 0 rgba(76, 201, 255, 0.5); }
+      70% { box-shadow: 0 0 0 6px rgba(76, 201, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(76, 201, 255, 0); }
+    }
+
+    /* Tema 3: Aspirador (verde - energia/automotivo) */
+    .theme-aspirador {
+      --theme-color: #2ee59d;
+      --theme-color-2: #00c853;
+      --theme-glow: rgba(46, 229, 157, 0.35);
+      background: linear-gradient(135deg, rgba(46, 229, 157, 0.12), rgba(0, 200, 83, 0.08));
+      border-color: rgba(46, 229, 157, 0.25);
+    }
+    .theme-aspirador i,
+    .theme-aspirador .product-img {
+      border-color: rgba(46, 229, 157, 0.5);
+    }
+    .theme-aspirador:hover {
+      background: linear-gradient(135deg, rgba(46, 229, 157, 0.22), rgba(0, 200, 83, 0.18));
+      border-color: var(--theme-color);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
+    }
+    .theme-aspirador .badge {
+      background: linear-gradient(135deg, #2ee59d, #00c853);
+      color: #0a0a0a;
+      box-shadow: 0 2px 8px rgba(46, 229, 157, 0.4);
+    }
+
+    /* Tema 4: WhatsApp (verde WhatsApp) */
+    .theme-whatsapp {
+      --theme-color: #25d366;
+      --theme-color-2: #128c7e;
+      --theme-glow: rgba(37, 211, 102, 0.35);
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(18, 140, 126, 0.08));
+      border-color: rgba(37, 211, 102, 0.25);
+    }
+    .theme-whatsapp i,
+    .theme-whatsapp .product-img {
+      border-color: rgba(37, 211, 102, 0.5);
+      color: #25d366;
+    }
+    .theme-whatsapp:hover {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.22), rgba(18, 140, 126, 0.18));
+      border-color: var(--theme-color);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
+    }
+    .theme-whatsapp .badge {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Tema 5: Avaliações (dourado/âmbar - estrelas) */
+    .theme-reviews {
+      --theme-color: #ffd700;
+      --theme-color-2: #ffb347;
+      --theme-glow: rgba(255, 215, 0, 0.35);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 179, 71, 0.08));
+      border-color: rgba(255, 215, 0, 0.25);
+    }
+    .theme-reviews i,
+    .theme-reviews .product-img {
+      border-color: rgba(255, 215, 0, 0.5);
+    }
+    .theme-reviews:hover {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 179, 71, 0.18));
+      border-color: var(--theme-color);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
+    }
+    .theme-reviews .badge {
+      background: linear-gradient(135deg, #ffd700, #ffb347);
+      color: #0a0a0a;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Tema Instagram (gradiente oficial mais vibrante) */
+    .theme-instagram {
+      --theme-color: #e1306c;
+      --theme-color-2: #833ab4;
+      --theme-glow: rgba(225, 48, 108, 0.5);
+      background: linear-gradient(135deg, #fdc830 0%, #f37335 20%, #dc2743 50%, #cc2366 75%, #833ab4 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-weight: 600;
+      margin-top: 4px;
+      box-shadow: 0 8px 20px rgba(225, 48, 108, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .theme-instagram i {
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-instagram .product-img {
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .theme-instagram:hover {
+      background: linear-gradient(135deg, #ffdb4d 0%, #ff8a4a 20%, #f04060 50%, #d83a85 75%, #9a47c9 100%);
+      border-color: #fff3e0;
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: 0 16px 36px rgba(225, 48, 108, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-instagram .badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Rodapé / selo */
+    .footer-note {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #6a6a6a;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 24px;
+    }
+
+    .footer-note i {
+      color: #ffb347;
+      font-size: 14px;
+    }
+
+    .footer-note a {
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px dotted #444;
+      transition: color 0.2s;
+    }
+
+    .footer-note a:hover {
+      color: #ffb347;
+      border-bottom-color: #ffb347;
+    }
+
+    /* Responsividade */
+    @media (max-width: 500px) {
+      .linktree-card {
+        padding: 28px 18px 32px;
+        border-radius: 32px;
+      }
+      .username {
+        font-size: 24px;
+      }
+      .link-item {
+        padding: 12px 14px;
+        font-size: 15px;
+        gap: 10px;
+      }
+      .link-item i {
+        font-size: 20px;
+        width: 26px;
+      }
+      .product-img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    /* Tema escuro e acessibilidade */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Tooltip sutil para o link do Instagram */
+    .link-instagram span {
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+<body>
+<div class="linktree-card" role="main">
+
+  <!-- Foto / Avatar -->
+  <div class="profile-picture" aria-label="Foto de perfil Zomaruss">
+    <img src="img/logozoma.jpeg" alt="Zoma" />
+  </div>
+
+  <!-- Nome e descrição -->
+  <h1 class="username">@zomaruss</h1>
+  <div class="bio">
+    <i class="fas fa-tag" aria-hidden="true"></i>
+    <span class="highlight">Moda &amp; Acessórios</span> ·
+    <i class="fas fa-shipping-fast" aria-hidden="true"></i> Entrega rápida
+    <br>
+    <span style="font-size: 14px; color: #999;">✨ <i class="fas fa-star" style="color: #ffb347;"></i> Novidades toda semana</span>
+  </div>
+
+  <!-- Links principais (venda / produtos) -->
+  <div class="links-grid">
+
+    <!-- Link 1: Instagram (destaque) -->
+    <a href="https://www.instagram.com/zomaruss/" class="link-item theme-instagram" target="_blank" rel="noopener noreferrer" aria-label="Visite nosso Instagram @zomaruss">
+      <i class="fab fa-instagram" aria-hidden="true"></i>
+      <span>Siga @zomaruss</span>
+      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver produtos</span>
+    </a>
+
+    <!-- Link 2: Lixa de pé recarregável (COM FOTO) -->
+    <a href="https://pay.kaiross.com.br/edY2RWeiN8KC" class="link-item theme-lixa" target="_blank" rel="noopener" aria-label="Lixa de Pé Elétrica Recarregável À Prova Dágua Bivolt | MQ-7312">
+      <!-- Substitua o src pela URL da sua imagem do produto -->
+      <img class="product-img" src="img/lixadepé.webp" alt="Lixa de pé">
+      <span>Lixa de Pé Elétrica Recarregável À Prova Dágua Bivolt | MQ-7312</span>
+      <span class="badge pulse">Compre aqui</span>
+    </a>
+
+    <a href="https://pay.kaiross.com.br/hQ221IR0AOeL" class="link-item theme-joelheira" target="_blank" rel="noopener" aria-label="Lixa de Pé Elétrica Recarregável À Prova Dágua Bivolt | MQ-7312">
+      <!-- Substitua o src pela URL da sua imagem do produto -->
+      <img class="product-img" src="img/joelhera.jpg" alt="PAR de Joelheiras de Compressão Ortopédica - MWKS 6906">
+      <span>PAR de Joelheiras de Compressão Ortopédica - MWKS 6906</span>
+      <span class="badge pulse">Compre aqui</span>
+    </a>
+
+    <!-- Link 3: Ofertas (COM FOTO) -->
+    <a href="https://pay.kaiross.com.br/6GuzEw0veSUp" class="link-item theme-aspirador" target="_blank" rel="noopener" aria-label="Mini Aspirador Automotivo Portátil Potente Recarregável Premium Bivolt | AJ-S17">
+      <img class="product-img" src="img/aspirador.jpg" alt="Ofertas">
+      <span>Mini Aspirador Automotivo Portátil Potente Recarregável Premium Bivolt | AJ-S17</span>
+      <span class="badge">Compre aqui</span>
+    </a>
+
+  </div>
+
+  <!-- Rodapé -->
+  <div class="footer-note">
+    <span><i class="fas fa-shopping-bag" aria-hidden="true"></i> </span>
+    <span>•</span>
+    <a href="https://www.instagram.com/zomaruss/" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram" aria-hidden="true"></i> @zomaruss
+    </a>
+    <span>•</span>
+    <span><i class="fas fa-heart" style="color: #ff6b6b;"></i> feito com estilo</span>
+  </div>
+
+</div>
+</body>
+</html>
