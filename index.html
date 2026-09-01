@@ -176,11 +176,16 @@
       color: #0a0a0a;
       font-size: 12px;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 40px;
       letter-spacing: 0.5px;
       z-index: 1;
       box-shadow: 0 2px 6px rgba(255, 180, 70, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      white-space: nowrap;
     }
 
     .link-item .badge.pulse {
@@ -428,10 +433,16 @@
     }
 
     .theme-tiktok .badge {
-      background: linear-gradient(135deg, #25f4ee, #fe2c55);
-      color: #000;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(254, 44, 85, 0.4);
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .theme-tiktok:hover .badge {
+      border-color: #25f4ee;
+      box-shadow: 0 2px 10px rgba(37, 244, 238, 0.3);
     }
 
     /* Rodapé / selo */
