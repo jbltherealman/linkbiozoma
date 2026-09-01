@@ -399,6 +399,41 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
+    /* Tema TikTok (gradiente escuro com ciano e rosa néon) */
+    .theme-tiktok {
+      --theme-color: #25f4ee;
+      --theme-color-2: #fe2c55;
+      --theme-glow: rgba(37, 244, 238, 0.4);
+      background: linear-gradient(135deg, #010101 0%, #161823 50%, #0d0014 100%);
+      border: 1px solid rgba(37, 244, 238, 0.35);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), -2px 0 10px rgba(37, 244, 238, 0.2), 2px 0 10px rgba(254, 44, 85, 0.2);
+    }
+
+    .theme-tiktok i {
+      color: #fff;
+      filter: drop-shadow(-1px 0 0 #25f4ee) drop-shadow(1px 0 0 #fe2c55);
+    }
+
+    .theme-tiktok .product-img {
+      border-color: rgba(37, 244, 238, 0.6);
+    }
+
+    .theme-tiktok:hover {
+      background: linear-gradient(135deg, #080808 0%, #1e202d 50%, #170024 100%);
+      border-color: #25f4ee;
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), -4px 0 18px rgba(37, 244, 238, 0.4), 4px 0 18px rgba(254, 44, 85, 0.4);
+    }
+
+    .theme-tiktok .badge {
+      background: linear-gradient(135deg, #25f4ee, #fe2c55);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(254, 44, 85, 0.4);
+    }
+
     /* Rodapé / selo */
     .footer-note {
       margin-top: 30px;
@@ -493,8 +528,15 @@
     <!-- Link 1: Instagram (destaque) -->
     <a href="https://www.instagram.com/zomaruss/" class="link-item theme-instagram" target="_blank" rel="noopener noreferrer" aria-label="Visite nosso Instagram @zomaruss">
       <i class="fab fa-instagram" aria-hidden="true"></i>
-      <span>Siga @zomaruss</span>
-      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver produtos</span>
+      <span>Siga @zomaruss no Instagram</span>
+      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver fotos</span>
+    </a>
+
+    <!-- Link TikTok (destaque) -->
+    <a href="https://www.tiktok.com/@zomaruss" class="link-item theme-tiktok" target="_blank" rel="noopener noreferrer" aria-label="Visite nosso TikTok @zomaruss">
+      <i class="fab fa-tiktok" aria-hidden="true"></i>
+      <span>Siga @zomaruss no TikTok</span>
+      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver vídeos</span>
     </a>
 
     <!-- Link 2: Lixa de pé recarregável (COM FOTO) -->
@@ -527,6 +569,10 @@
     <span>•</span>
     <a href="https://www.instagram.com/zomaruss/" target="_blank" rel="noopener noreferrer">
       <i class="fab fa-instagram" aria-hidden="true"></i> @zomaruss
+    </a>
+    <span>•</span>
+    <a href="https://www.tiktok.com/@zomaruss" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-tiktok" aria-hidden="true"></i> TikTok
     </a>
     <span>•</span>
     <span><i class="fas fa-heart" style="color: #ff6b6b;"></i> feito com estilo</span>
