@@ -1,594 +1,686 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Zomaruss · Linktree</title>
-  <!-- Font Awesome (opcional, para ícones) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf3eb">
+  <meta name="description" content="Zomaruss - Achadinhos e ofertas selecionadas.">
+  <title>Zomaruss · Links & Ofertas</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    /* Reset básico e estilo minimalista */
+    /* =========================================================
+       DESIGN SYSTEM ZOMARUSS · EQUILÍBRIO & DIRETO AO PONTO
+       Cores da Logo: #fbf3eb, #8bbcc1, #f2956c, #c29da1, #e2c7b0
+       ========================================================= */
+    :root {
+      --brand-cream: #fbf3eb;
+      --brand-teal: #8bbcc1;
+      --brand-teal-dark: #4d868c;
+      --brand-coral: #f2956c;
+      --brand-coral-dark: #dc703f;
+      --brand-rose: #c29da1;
+      --brand-sand: #e2c7b0;
+
+      --bg-page: #fbf3eb;
+      --card-bg: #ffffff;
+      --card-border: rgba(194, 157, 161, 0.4);
+
+      --text-main: #1e2530;
+      --text-sub: #526071;
+      --text-muted: #798696;
+
+      --radius-sm: 14px;
+      --radius-md: 20px;
+      --radius-lg: 26px;
+      --radius-full: 9999px;
+
+      --shadow-card: 0 6px 20px -4px rgba(194, 157, 161, 0.28), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 14px 30px -6px rgba(242, 149, 108, 0.32), 0 4px 10px rgba(139, 188, 193, 0.15);
+
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-      background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 100%);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 24px 16px 40px;
+      padding-bottom: calc(40px + env(safe-area-inset-bottom));
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.4;
     }
 
-    .linktree-card {
-      max-width: 580px;
-      width: 100%;
-      background: rgba(22, 22, 22, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      padding: 40px 28px 48px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      text-align: center;
-      transition: transform 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.03);
+    /* Ambient Background Glows */
+    .bg-glow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* Avatar / foto de perfil */
-    .profile-picture {
-      width: 110px;
-      height: 110px;
+    .glow-orb {
+      position: absolute;
       border-radius: 50%;
-      background: #2a2a2a;
-      margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #ffb347;
-      box-shadow: 0 0 0 4px rgba(255, 180, 70, 0.2);
-      transition: box-shadow 0.3s;
-      overflow: hidden;
+      filter: blur(85px);
+      opacity: 0.55;
     }
 
-    .profile-picture i {
-      font-size: 58px;
-      color: #f5c542;
-      filter: drop-shadow(0 2px 6px rgba(255, 180, 50, 0.3));
+    .glow-orb-1 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #8bbcc1, #e2c7b0);
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .profile-picture img {
+    .glow-orb-2 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, #f2956c, #c29da1);
+      bottom: 5%;
+      left: -50px;
+    }
+
+    /* Container Principal */
+    .bio-wrapper {
+      position: relative;
+      z-index: 1;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Título e subtítulo */
-    .username {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-      margin-bottom: 4px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .bio {
-      font-size: 16px;
-      color: #b0b0b0;
-      margin-bottom: 28px;
-      font-weight: 400;
-      line-height: 1.5;
-      padding: 0 8px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
-      padding-bottom: 20px;
-    }
-
-    .bio i {
-      color: #ffb347;
-      margin: 0 4px;
-    }
-
-    .highlight {
-      color: #ffb347;
-      font-weight: 500;
-    }
-
-    /* Grid de links estilo "Linktree" */
-    .links-grid {
+      max-width: 480px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin: 20px 0 28px;
     }
 
-    .link-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      padding: 14px 20px;
-      border-radius: 60px;
-      text-decoration: none;
-      color: #eeeeee;
-      font-weight: 500;
-      font-size: 17px;
-      letter-spacing: 0.3px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Profile Header Card */
+    .profile-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 24px 18px 20px;
+      text-align: center;
+      box-shadow: 0 12px 32px -10px rgba(194, 157, 161, 0.35);
       position: relative;
-      overflow: hidden;
     }
 
-    .link-item::before {
-      content: "";
+    .profile-card::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255, 180, 70, 0.08), transparent 70%);
+      height: 4px;
+      background: linear-gradient(90deg, #8bbcc1, #f2956c, #c29da1, #8bbcc1);
+      background-size: 200% 100%;
+    }
+
+    /* Botão Compartilhar */
+    .share-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: rgba(251, 243, 235, 0.95);
+      border: 1px solid rgba(194, 157, 161, 0.45);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .share-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Avatar */
+    .avatar-wrapper {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 12px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -3.5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8bbcc1, #f2956c, #c29da1);
+    }
+
+    .avatar-img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #fff;
+      border: 3.5px solid #fff;
+    }
+
+    .verified-badge {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      width: 22px;
+      height: 22px;
+      background: #8bbcc1;
+      color: #fff;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      box-shadow: 0 2px 6px rgba(139, 188, 193, 0.5);
+    }
+
+    .username-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      letter-spacing: -0.01em;
+    }
+
+    .bio-subtitle {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    /* Selos de Confiança */
+    .bio-tags {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .bio-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: var(--radius-full);
+      background: rgba(251, 243, 235, 0.95);
+      border: 1px solid rgba(194, 157, 161, 0.45);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bio-tag-security i {
+      color: var(--brand-teal-dark);
+    }
+
+    .bio-tag-shipping i {
+      color: var(--brand-coral);
+    }
+
+    /* =========================================================
+       CARTÕES DE PRODUTOS (ROBUSTOS, DIRETOS E SEM POLUIÇÃO)
+       ========================================================= */
+    .products-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* Card Produto */
+    .product-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px 12px 12px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--text-main);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(251, 243, 235, 0.5), transparent);
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.2s;
     }
 
-    .link-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #ffb347;
-      transform: scale(1.02) translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 180, 70, 0.2);
-      color: #ffffff;
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--brand-coral);
     }
 
-    .link-item:hover::before {
+    .product-card:hover::before {
       opacity: 1;
     }
 
-    .link-item i {
-      font-size: 22px;
-      width: 30px;
-      color: #ffb347;
-      transition: transform 0.2s;
-      z-index: 1;
+    .product-card:active {
+      transform: scale(0.98);
     }
 
-    .link-item:hover i {
-      transform: scale(1.1);
-    }
-
-    .link-item span {
-      flex: 1;
-      text-align: center;
-      z-index: 1;
-      font-weight: 500;
-    }
-
-    .link-item .badge {
-      background: #ffb347;
-      color: #0a0a0a;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 5px 14px;
-      border-radius: 40px;
-      letter-spacing: 0.5px;
-      z-index: 1;
-      box-shadow: 0 2px 6px rgba(255, 180, 70, 0.3);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      white-space: nowrap;
-    }
-
-    .link-item .badge.pulse {
-      animation: pulseGlow 2s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(255, 180, 70, 0.4); }
-      70% { box-shadow: 0 0 0 6px rgba(255, 180, 70, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 180, 70, 0); }
-    }
-
-    /* =============================================
-       NOVA CLASSE: product-img para fotos pequenas
-       ============================================= */
-    .product-img {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(255, 180, 70, 0.4);
+    /* Foto Nítida e Ampla */
+    .product-thumb {
+      width: 76px;
+      height: 76px;
+      min-width: 76px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid rgba(194, 157, 161, 0.3);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       flex-shrink: 0;
-      background: #1a1a1a;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-      z-index: 1;
+      position: relative;
     }
 
-    .link-item:hover .product-img {
-      transform: scale(1.08);
-      border-color: #ffb347;
-    }
-
-    /* Para quando a imagem não carregar, um fallback visual */
-    .product-img::before {
-      content: "📦";
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .product-thumb img {
       width: 100%;
       height: 100%;
-      font-size: 20px;
-      background: #2a2a2a;
-      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
     }
 
-    /* =============================================
-       TEMAS POR PRODUTO - cores características
-       ============================================= */
-
-    /* Tema 1: Lixa de Pé (rosa/roxo - beleza) */
-    .theme-lixa {
-      --theme-color: #ff5e8a;
-      --theme-color-2: #c44cff;
-      --theme-glow: rgba(255, 94, 138, 0.35);
-      background: linear-gradient(135deg, rgba(255, 94, 138, 0.12), rgba(196, 76, 255, 0.08));
-      border-color: rgba(255, 94, 138, 0.25);
-    }
-    .theme-lixa i,
-    .theme-lixa .product-img {
-      border-color: rgba(255, 94, 138, 0.5);
-    }
-    .theme-lixa:hover {
-      background: linear-gradient(135deg, rgba(255, 94, 138, 0.22), rgba(196, 76, 255, 0.18));
-      border-color: var(--theme-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
-    }
-    .theme-lixa .badge {
-      background: linear-gradient(135deg, #ff5e8a, #c44cff);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(255, 94, 138, 0.4);
-    }
-    .theme-lixa .badge.pulse {
-      animation: pulseGlowLixa 2s infinite;
-    }
-    @keyframes pulseGlowLixa {
-      0% { box-shadow: 0 0 0 0 rgba(255, 94, 138, 0.5); }
-      70% { box-shadow: 0 0 0 6px rgba(255, 94, 138, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 94, 138, 0); }
+    .product-card:hover .product-thumb img {
+      transform: scale(1.06);
     }
 
-    /* Tema 2: Joelheiras (azul/ciano - saúde/esporte) */
-    .theme-joelheira {
-      --theme-color: #4cc9ff;
-      --theme-color-2: #00b4d8;
-      --theme-glow: rgba(76, 201, 255, 0.35);
-      background: linear-gradient(135deg, rgba(76, 201, 255, 0.12), rgba(0, 180, 216, 0.08));
-      border-color: rgba(76, 201, 255, 0.25);
-    }
-    .theme-joelheira i,
-    .theme-joelheira .product-img {
-      border-color: rgba(76, 201, 255, 0.5);
-    }
-    .theme-joelheira:hover {
-      background: linear-gradient(135deg, rgba(76, 201, 255, 0.22), rgba(0, 180, 216, 0.18));
-      border-color: var(--theme-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
-    }
-    .theme-joelheira .badge {
-      background: linear-gradient(135deg, #4cc9ff, #00b4d8);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(76, 201, 255, 0.4);
-    }
-    .theme-joelheira .badge.pulse {
-      animation: pulseGlowJoelheira 2s infinite;
-    }
-    @keyframes pulseGlowJoelheira {
-      0% { box-shadow: 0 0 0 0 rgba(76, 201, 255, 0.5); }
-      70% { box-shadow: 0 0 0 6px rgba(76, 201, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(76, 201, 255, 0); }
+    /* Informações do Produto */
+    .product-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
     }
 
-    /* Tema 3: Aspirador (verde - energia/automotivo) */
-    .theme-aspirador {
-      --theme-color: #2ee59d;
-      --theme-color-2: #00c853;
-      --theme-glow: rgba(46, 229, 157, 0.35);
-      background: linear-gradient(135deg, rgba(46, 229, 157, 0.12), rgba(0, 200, 83, 0.08));
-      border-color: rgba(46, 229, 157, 0.25);
-    }
-    .theme-aspirador i,
-    .theme-aspirador .product-img {
-      border-color: rgba(46, 229, 157, 0.5);
-    }
-    .theme-aspirador:hover {
-      background: linear-gradient(135deg, rgba(46, 229, 157, 0.22), rgba(0, 200, 83, 0.18));
-      border-color: var(--theme-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
-    }
-    .theme-aspirador .badge {
-      background: linear-gradient(135deg, #2ee59d, #00c853);
-      color: #0a0a0a;
-      box-shadow: 0 2px 8px rgba(46, 229, 157, 0.4);
+    .product-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
     }
 
-    /* Tema 4: WhatsApp (verde WhatsApp) */
-    .theme-whatsapp {
-      --theme-color: #25d366;
-      --theme-color-2: #128c7e;
-      --theme-glow: rgba(37, 211, 102, 0.35);
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(18, 140, 126, 0.08));
-      border-color: rgba(37, 211, 102, 0.25);
-    }
-    .theme-whatsapp i,
-    .theme-whatsapp .product-img {
-      border-color: rgba(37, 211, 102, 0.5);
-      color: #25d366;
-    }
-    .theme-whatsapp:hover {
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.22), rgba(18, 140, 126, 0.18));
-      border-color: var(--theme-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
-    }
-    .theme-whatsapp .badge {
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+    .product-feature {
+      font-size: 12px;
+      color: var(--text-sub);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    /* Tema 5: Avaliações (dourado/âmbar - estrelas) */
-    .theme-reviews {
-      --theme-color: #ffd700;
-      --theme-color-2: #ffb347;
-      --theme-glow: rgba(255, 215, 0, 0.35);
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 179, 71, 0.08));
-      border-color: rgba(255, 215, 0, 0.25);
-    }
-    .theme-reviews i,
-    .theme-reviews .product-img {
-      border-color: rgba(255, 215, 0, 0.5);
-    }
-    .theme-reviews:hover {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 179, 71, 0.18));
-      border-color: var(--theme-color);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--theme-glow);
-    }
-    .theme-reviews .badge {
-      background: linear-gradient(135deg, #ffd700, #ffb347);
-      color: #0a0a0a;
-      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-    }
-
-    /* Tema Instagram (gradiente oficial mais vibrante) */
-    .theme-instagram {
-      --theme-color: #e1306c;
-      --theme-color-2: #833ab4;
-      --theme-glow: rgba(225, 48, 108, 0.5);
-      background: linear-gradient(135deg, #fdc830 0%, #f37335 20%, #dc2743 50%, #cc2366 75%, #833ab4 100%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      font-weight: 600;
-      margin-top: 4px;
-      box-shadow: 0 8px 20px rgba(225, 48, 108, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    }
-
-    .theme-instagram i {
-      color: #fff;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    .theme-instagram .product-img {
-      border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .theme-instagram:hover {
-      background: linear-gradient(135deg, #ffdb4d 0%, #ff8a4a 20%, #f04060 50%, #d83a85 75%, #9a47c9 100%);
-      border-color: #fff3e0;
-      transform: scale(1.03) translateY(-3px);
-      box-shadow: 0 16px 36px rgba(225, 48, 108, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.2);
-    }
-
-    .theme-instagram .badge {
-      background: rgba(255, 255, 255, 0.25);
-      color: #fff;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Tema TikTok (gradiente escuro com ciano e rosa néon) */
-    .theme-tiktok {
-      --theme-color: #25f4ee;
-      --theme-color-2: #fe2c55;
-      --theme-glow: rgba(37, 244, 238, 0.4);
-      background: linear-gradient(135deg, #010101 0%, #161823 50%, #0d0014 100%);
-      border: 1px solid rgba(37, 244, 238, 0.35);
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), -2px 0 10px rgba(37, 244, 238, 0.2), 2px 0 10px rgba(254, 44, 85, 0.2);
-    }
-
-    .theme-tiktok i {
-      color: #fff;
-      filter: drop-shadow(-1px 0 0 #25f4ee) drop-shadow(1px 0 0 #fe2c55);
-    }
-
-    .theme-tiktok .product-img {
-      border-color: rgba(37, 244, 238, 0.6);
-    }
-
-    .theme-tiktok:hover {
-      background: linear-gradient(135deg, #080808 0%, #1e202d 50%, #170024 100%);
-      border-color: #25f4ee;
-      transform: scale(1.03) translateY(-3px);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), -4px 0 18px rgba(37, 244, 238, 0.4), 4px 0 18px rgba(254, 44, 85, 0.4);
-    }
-
-    .theme-tiktok .badge {
-      background: #000000;
+    /* Botão de Compra */
+    .btn-buy {
+      background: linear-gradient(135deg, #f2956c, #dc703f);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    }
-
-    .theme-tiktok:hover .badge {
-      border-color: #25f4ee;
-      box-shadow: 0 2px 10px rgba(37, 244, 238, 0.3);
-    }
-
-    /* Rodapé / selo */
-    .footer-note {
-      margin-top: 30px;
+      padding: 10px 16px;
+      border-radius: var(--radius-full);
       font-size: 13px;
-      color: #6a6a6a;
-      letter-spacing: 0.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(242, 149, 108, 0.38);
+      white-space: nowrap;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-buy i {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover .btn-buy i {
+      transform: translateX(3px);
+    }
+
+    /* Variação Teal */
+    .theme-teal {
+      border-color: rgba(139, 188, 193, 0.45);
+    }
+
+    .theme-teal:hover {
+      border-color: var(--brand-teal-dark);
+    }
+
+    .theme-teal .btn-buy {
+      background: linear-gradient(135deg, #8bbcc1, #5a949a);
+      box-shadow: 0 4px 14px rgba(90, 148, 154, 0.35);
+    }
+
+    /* =========================================================
+       SEÇÃO REDES SOCIAIS (CÍRCULOS EMBAIXO)
+       ========================================================= */
+    .social-circles-wrapper {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .social-circle-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid rgba(194, 157, 161, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      padding-top: 24px;
-    }
-
-    .footer-note i {
-      color: #ffb347;
-      font-size: 14px;
-    }
-
-    .footer-note a {
-      color: #888;
       text-decoration: none;
-      border-bottom: 1px dotted #444;
-      transition: color 0.2s;
+      box-shadow: 0 4px 14px rgba(194, 157, 161, 0.25);
+      transition: all 0.25s var(--ease-spring);
+      position: relative;
     }
 
-    .footer-note a:hover {
-      color: #ffb347;
-      border-bottom-color: #ffb347;
+    .social-circle-btn i {
+      font-size: 22px;
+      transition: transform 0.2s ease;
     }
 
-    /* Responsividade */
-    @media (max-width: 500px) {
-      .linktree-card {
-        padding: 28px 18px 32px;
-        border-radius: 32px;
-      }
-      .username {
-        font-size: 24px;
-      }
-      .link-item {
-        padding: 12px 14px;
-        font-size: 15px;
-        gap: 10px;
-      }
-      .link-item i {
-        font-size: 20px;
-        width: 26px;
-      }
-      .product-img {
-        width: 36px;
-        height: 36px;
-      }
+    .social-circle-btn.btn-instagram {
+      color: #e1306c;
     }
 
-    /* Tema escuro e acessibilidade */
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+    .social-circle-btn.btn-instagram:hover {
+      border-color: #e1306c;
+      box-shadow: 0 8px 20px rgba(225, 48, 108, 0.3);
+      transform: translateY(-3px) scale(1.06);
     }
 
-    /* Tooltip sutil para o link do Instagram */
-    .link-instagram span {
-      letter-spacing: 0.3px;
+    .social-circle-btn.btn-tiktok {
+      color: #1e2530;
+    }
+
+    .social-circle-btn.btn-tiktok:hover {
+      border-color: #8bbcc1;
+      box-shadow: 0 8px 20px rgba(139, 188, 193, 0.35);
+      transform: translateY(-3px) scale(1.06);
+    }
+
+    .social-circle-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* Rodapé */
+    .footer {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Toast */
+    .toast-notice {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1e2530;
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: var(--radius-full);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s var(--ease-spring);
+      z-index: 999;
+    }
+
+    .toast-notice.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Ajustes Mobile Pequeno */
+    @media (max-width: 380px) {
+      .product-thumb {
+        width: 66px;
+        height: 66px;
+        min-width: 66px;
+      }
+
+      .product-name {
+        font-size: 14px;
+      }
+
+      .product-feature {
+        font-size: 11px;
+      }
+
+      .btn-buy {
+        padding: 9px 12px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="linktree-card" role="main">
 
-  <!-- Foto / Avatar -->
-  <div class="profile-picture" aria-label="Foto de perfil Zomaruss">
-    <img src="img/logozoma.jpeg" alt="Zoma" />
+  <!-- Ambient Glows -->
+  <div class="bg-glow-container" aria-hidden="true">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
   </div>
 
-  <!-- Nome e descrição -->
-  <h1 class="username">@zomaruss</h1>
-  <div class="bio">
-    <i class="fas fa-tag" aria-hidden="true"></i>
-    <span class="highlight">Moda &amp; Acessórios</span> ·
-    <i class="fas fa-shipping-fast" aria-hidden="true"></i> Entrega rápida
-    <br>
-    <span style="font-size: 14px; color: #999;">✨ <i class="fas fa-star" style="color: #ffb347;"></i> Novidades toda semana</span>
+  <!-- Container -->
+  <main class="bio-wrapper">
+
+    <!-- Header Perfil -->
+    <header class="profile-card">
+      <button class="share-btn" id="shareBtn" title="Compartilhar" aria-label="Compartilhar">
+        <i class="fas fa-share-nodes"></i>
+      </button>
+
+      <div class="avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <img class="avatar-img" src="img/logozoma.jpeg" alt="Zomaruss" />
+        <div class="verified-badge">
+          <i class="fas fa-check"></i>
+        </div>
+      </div>
+
+      <h1 class="username-title">@zomaruss</h1>
+      <p class="bio-subtitle">Achadinhos & Produtos Selecionados ✨</p>
+
+      <div class="bio-tags">
+        <span class="bio-tag bio-tag-security"><i class="fas fa-shield-halved"></i> Compra 100% Segura</span>
+        <span class="bio-tag bio-tag-shipping"><i class="fas fa-bolt"></i> Envio Rápido</span>
+      </div>
+    </header>
+
+    <!-- LISTA DE PRODUTOS -->
+    <div class="products-list" role="list">
+
+      <!-- PRODUTO 1: LIXA DE PÉ -->
+      <a href="https://meli.la/116AB1c" class="product-card" target="_blank" rel="noopener" role="listitem">
+        <div class="product-thumb">
+          <img src="img/lixadepé.webp" alt="Lixa de Pé Elétrica Bivolt" loading="lazy">
+        </div>
+        <div class="product-content">
+          <h2 class="product-name">Lixa de Pé Elétrica Recarregável</h2>
+          <div class="product-feature">
+            <i class="fas fa-droplet" style="color: var(--brand-coral);"></i> Bivolt · À Prova D'água
+          </div>
+        </div>
+        <div class="btn-buy">
+          <span>VER</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </a>
+
+      <!-- PRODUTO 2: JOELHEIRA -->
+      <a href="https://meli.la/1sojqFb" class="product-card theme-teal" target="_blank" rel="noopener" role="listitem">
+        <div class="product-thumb">
+          <img src="img/joelhera.jpg" alt="Par de Joelheiras de Compressão" loading="lazy">
+        </div>
+        <div class="product-content">
+          <h2 class="product-name">Joelheira de Compressão Ortopédica</h2>
+          <div class="product-feature">
+            <i class="fas fa-shield-heart" style="color: var(--brand-teal-dark);"></i> Par Completo · Suporte Articular
+          </div>
+        </div>
+        <div class="btn-buy">
+          <span>VER</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </a>
+
+      <!-- PRODUTO 3: MINI ASPIRADOR -->
+      <a href="https://meli.la/323Fws5" class="product-card" target="_blank" rel="noopener" role="listitem">
+        <div class="product-thumb">
+          <img src="img/aspirador.jpg" alt="Mini Aspirador Automotivo Portátil" loading="lazy">
+        </div>
+        <div class="product-content">
+          <h2 class="product-name">Mini Aspirador Portátil Automotivo</h2>
+          <div class="product-feature">
+            <i class="fas fa-bolt" style="color: var(--brand-coral);"></i> Sem Fio · Alta Sucção
+          </div>
+        </div>
+        <div class="btn-buy">
+          <span>VER</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- REDES SOCIAIS (CÍRCULOS) -->
+    <div class="social-circles-wrapper" aria-label="Redes Sociais">
+      <a href="https://www.instagram.com/zomaruss/" class="social-circle-btn btn-instagram" target="_blank"
+        rel="noopener noreferrer" aria-label="Instagram @zomaruss" title="Instagram @zomaruss">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <a href="https://www.tiktok.com/@zomaruss" class="social-circle-btn btn-tiktok" target="_blank"
+        rel="noopener noreferrer" aria-label="TikTok @zomaruss" title="TikTok @zomaruss">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+      <span>© 2025 @zomaruss · Links Oficiais</span>
+    </footer>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast-notice" id="toastNotice" role="status" aria-live="polite">
+    <i class="fas fa-circle-check" style="color: #8bbcc1;"></i>
+    <span>Link copiado!</span>
   </div>
 
-  <!-- Links principais (venda / produtos) -->
-  <div class="links-grid">
+  <!-- Script Compartilhar -->
+  <script>
+    const shareBtn = document.getElementById('shareBtn');
+    const toastNotice = document.getElementById('toastNotice');
 
-    <!-- Link 1: Instagram (destaque) -->
-    <a href="https://www.instagram.com/zomaruss/" class="link-item theme-instagram" target="_blank" rel="noopener noreferrer" aria-label="Visite nosso Instagram @zomaruss">
-      <i class="fab fa-instagram" aria-hidden="true"></i>
-      <span>Siga @zomaruss no Instagram</span>
-      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver fotos</span>
-    </a>
+    function showToast(message) {
+      if (message) toastNotice.querySelector('span').textContent = message;
+      toastNotice.classList.add('show');
+      setTimeout(() => toastNotice.classList.remove('show'), 2200);
+    }
 
-    <!-- Link TikTok (destaque) -->
-    <a href="https://www.tiktok.com/@zomaruss" class="link-item theme-tiktok" target="_blank" rel="noopener noreferrer" aria-label="Visite nosso TikTok @zomaruss">
-      <i class="fab fa-tiktok" aria-hidden="true"></i>
-      <span>Siga @zomaruss no TikTok</span>
-      <span class="badge"><i class="fas fa-arrow-right" aria-hidden="true"></i> ver vídeos</span>
-    </a>
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        const shareData = {
+          title: 'Zomaruss · Ofertas',
+          url: window.location.href
+        };
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            if (err.name !== 'AbortError') copyToClipboard(window.location.href);
+          }
+        } else {
+          copyToClipboard(window.location.href);
+        }
+      });
+    }
 
-    <!-- Link 2: Lixa de pé recarregável (COM FOTO) -->
-    <a href="https://meli.la/116AB1c" class="link-item theme-lixa" target="_blank" rel="noopener" aria-label="Lixa de Pé Elétrica Recarregável À Prova Dágua Bivolt | MQ-7312">
-      <!-- Substitua o src pela URL da sua imagem do produto -->
-      <img class="product-img" src="img/lixadepé.webp" alt="Lixa de pé">
-      <span>Lixa de Pé Elétrica Recarregável À Prova D'água</span>
-      <span class="badge pulse">Compre aqui</span>
-    </a>
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => showToast('Link copiado!')).catch(() => fallbackCopyText(text));
+      } else {
+        fallbackCopyText(text);
+      }
+    }
 
-    <a href="https://meli.la/1sojqFb" class="link-item theme-joelheira" target="_blank" rel="noopener" aria-label="Lixa de Pé Elétrica Recarregável À Prova Dágua Bivolt | MQ-7312">
-      <!-- Substitua o src pela URL da sua imagem do produto -->
-      <img class="product-img" src="img/joelhera.jpg" alt="PAR de Joelheiras de Compressão Ortopédica - MWKS 6906">
-      <span>PAR de Joelheiras de Compressão Ortopédica</span>
-      <span class="badge pulse">Compre aqui</span>
-    </a>
-
-    <!-- Link 3: Ofertas (COM FOTO) -->
-    <a href="https://meli.la/323Fws5" class="link-item theme-aspirador" target="_blank" rel="noopener" aria-label="Mini Aspirador Automotivo Portátil Potente Recarregável Premium Bivolt | AJ-S17">
-      <img class="product-img" src="img/aspirador.jpg" alt="Ofertas">
-      <span>Mini Aspirador Automotivo Portátil</span>
-      <span class="badge">Compre aqui</span>
-    </a>
-
-  </div>
-
-  <!-- Rodapé -->
-  <div class="footer-note">
-    <span><i class="fas fa-shopping-bag" aria-hidden="true"></i> </span>
-    <span>•</span>
-    <a href="https://www.instagram.com/zomaruss/" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-instagram" aria-hidden="true"></i> @zomaruss
-    </a>
-    <span>•</span>
-    <a href="https://www.tiktok.com/@zomaruss" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-tiktok" aria-hidden="true"></i> TikTok
-    </a>
-    <span>•</span>
-    <span><i class="fas fa-heart" style="color: #ff6b6b;"></i> feito com estilo</span>
-  </div>
-
-</div>
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast('Link copiado!');
+      } catch (err) {
+        showToast('Erro ao copiar.');
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
 </body>
+
 </html>
